@@ -1,3 +1,72 @@
 page-fukidashi {
+  $triangle-size:18px;
 
+  $face-icon-size:40px;
+  $side-margin:10px;
+  .yourremark{
+    $base-color:#edf1ee;
+    width: 100%;
+    margin: 10px 0; /* 上下 | 左右 */
+    //overflow: hidden;
+    // background-color: red;
+    .faceicon{
+      background-color: blue;
+      float: left;
+      margin-right: -($side-margin + $face-icon-size);
+      width: $face-icon-size;
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+    .message{
+      width: 100%;
+      text-align: left;
+      .balloon{
+        display: inline-block;
+        position: relative;
+        margin-left: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
+        padding: 10px;
+        max-width: 70%;
+        border-radius: 6px;
+        background: $base-color;
+        &::after{
+          content: "";
+          display: inline-block;
+          position: absolute;
+          top: 3px;
+          left: -($triangle-size +1);
+          border: 8px solid transparent;
+          border-right: $triangle-size solid $base-color;
+          // -ms-transform: rotate(35deg);
+          // -webkit-transform: rotate(35deg);
+          // transform: rotate(35deg);
+        }
+      }
+    }
+  }
+  .myremark{
+    @extend .yourremark;
+    $base-color:#30e8c9;
+    //background-color: blue;
+    .message{
+      text-align: right;
+      .balloon{
+        margin-right: ($side-margin + $face-icon-size);
+        background: $base-color;
+        &::after{
+          left: auto;
+          top:auto;
+          right: -($triangle-size +1);
+          bottom: 3px;
+          border: 8px solid transparent;
+          border-left: $triangle-size solid $base-color;
+          // -ms-transform: rotate(35deg);
+          // -webkit-transform: rotate(35deg);
+          // transform: rotate(35deg);
+        }
+      }
+    }
+  }
 }
