@@ -4,9 +4,13 @@ page-fukidashi {
   $face-icon-size:40px;
   $side-margin:10px;
 
-  .remark{
-    text-align: left;
-    $base-color:#edf1ee;
+
+@mixin remarks($align: left,$base-color:#edf1ee){
+    $vAlign: if($align == left, top,bottom);  // 縦方向align
+    $opoAlign:if($align == left, right,left);     // 逆
+
+    text-align: $align;
+
     width: 100%;
     margin: 10px 0; /* 上下 | 左右 */
     //overflow: hidden;
@@ -15,6 +19,8 @@ page-fukidashi {
     .faceicon{
       img, .icon{
         position: absolute;
+        #{$align}: $side-margin;
+        #{$vAlign}: $side-margin;
       }
     }
     .message{
@@ -23,11 +29,18 @@ page-fukidashi {
       padding: 10px;
       max-width: 70%;
       border-radius: 6px;
+      margin-#{$align}: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
+      background: $base-color;
+
       &::after{
         content: "";
         display: inline-block;
         position: absolute;
         border: 8px solid transparent;
+        #{$vAlign}: 3px;
+        #{$align}: -($triangle-size +1);
+        border-#{$opoAlign}: $triangle-size solid $base-color;
+
         // -ms-transform: rotate(35deg);
         // -webkit-transform: rotate(35deg);
         // transform: rotate(35deg);
@@ -36,45 +49,34 @@ page-fukidashi {
 
   }
 
+
   .yourremark{
-    @extend .remark;
-    text-align: left;
-    $base-color:#edf1ee;
-    .faceicon{
-      img, .icon{
-        left: $side-margin;
-        top: $side-margin;
-      }
-    }
-    .message{
-      margin-left: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
-      background: $base-color;
-      &::after{
-        top: 3px;
-        left: -($triangle-size +1);
-        border-right: $triangle-size solid $base-color;
-      }
-    }
+    @include remarks(left,#edf1ee)
   }
+
   .myremark{
-    @extend .remark;
-    $base-color:#30e8c9;
-    text-align: right;
-    //background-color: blue;
-    .faceicon{
-      img, .icon{
-        right: $side-margin;
-        bottom: $side-margin;
-      }
-    }
-    .message{
-      margin-right: ($side-margin + $face-icon-size);
-      background: $base-color;
-      &::after{
-        right: -($triangle-size +1);
-        bottom: 3px;
-        border-left: $triangle-size solid $base-color;
-      }
-    }
+    @include remarks(right,#30e8c9)
   }
+
+  // .myremark{
+  //   @extend .remark;
+  //   $base-color:#30e8c9;
+  //   text-align: right;
+  //   //background-color: blue;
+  //   .faceicon{
+  //     img, .icon{
+  //       right: $side-margin;
+  //       bottom: $side-margin;
+  //     }
+  //   }
+  //   .message{
+  //     margin-right: ($side-margin + $face-icon-size);
+  //     background: $base-color;
+  //     &::after{
+  //       right: -($triangle-size +1);
+  //       bottom: 3px;
+  //       border-left: $triangle-size solid $base-color;
+  //     }
+  //   }
+  // }
 }
