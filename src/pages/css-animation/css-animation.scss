@@ -1,7 +1,17 @@
 page-css-animation {
+  @keyframes popup {
+    from{
+      transform: scale(.3);
+    }
+    to{
+      transform: scale(1);
+    }
+  }
   .message{
     margin-top: 1em;
     border-bottom: 1px solid silver;
+    animation-duration: 250ms;
+    animation-name: popup;
   }
 
 }
