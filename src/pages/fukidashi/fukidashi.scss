@@ -3,7 +3,8 @@ page-fukidashi {
 
   $face-icon-size:40px;
   $side-margin:10px;
-  .yourremark{
+
+  .remark{
     text-align: left;
     $base-color:#edf1ee;
     width: 100%;
@@ -12,69 +13,67 @@ page-fukidashi {
     // background-color: red;
     position: relative;
     .faceicon{
-      float: left;
-      // margin-right: -($side-margin + $face-icon-size);
-      width: $face-icon-size;
-      height: $face-icon-size;
-      //background-color: blue;
-      position: absolute;
-      top:0px;
-      //position: relative;
       img, .icon{
         position: absolute;
-        left: 50%;
-        top: 50%;
-          -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
       }
     }
     .message{
       display: inline-block;
       position: relative;
-      margin-left: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
       padding: 10px;
       max-width: 70%;
       border-radius: 6px;
-      background: $base-color;
       &::after{
         content: "";
         display: inline-block;
         position: absolute;
-        top: 3px;
-        left: -($triangle-size +1);
         border: 8px solid transparent;
-        border-right: $triangle-size solid $base-color;
         // -ms-transform: rotate(35deg);
         // -webkit-transform: rotate(35deg);
         // transform: rotate(35deg);
       }
     }
+
+  }
+
+  .yourremark{
+    @extend .remark;
+    text-align: left;
+    $base-color:#edf1ee;
+    .faceicon{
+      img, .icon{
+        left: $side-margin;
+        top: $side-margin;
+      }
+    }
+    .message{
+      margin-left: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
+      background: $base-color;
+      &::after{
+        top: 3px;
+        left: -($triangle-size +1);
+        border-right: $triangle-size solid $base-color;
+      }
+    }
   }
   .myremark{
-    @extend .yourremark;
+    @extend .remark;
     $base-color:#30e8c9;
     text-align: right;
     //background-color: blue;
     .faceicon{
-      right: 0px;
-      top:auto;
-      bottom: 0px;
-      // margin-right: 0;
-      // margin-left: -($side-margin + $face-icon-size);
+      img, .icon{
+        right: $side-margin;
+        bottom: $side-margin;
+      }
     }
     .message{
       margin-right: ($side-margin + $face-icon-size);
       background: $base-color;
       &::after{
-        left: auto;
-        top:auto;
         right: -($triangle-size +1);
         bottom: 3px;
-        border: 8px solid transparent;
         border-left: $triangle-size solid $base-color;
-        // -ms-transform: rotate(35deg);
-        // -webkit-transform: rotate(35deg);
-        // transform: rotate(35deg);
       }
     }
   }
