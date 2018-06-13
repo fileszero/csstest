@@ -9,13 +9,15 @@ import { FukidashiPage } from '../pages/fukidashi/fukidashi';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    FukidashiPage
+    FukidashiPage,
+    ScrollToBottomPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-    FukidashiPage
+    FukidashiPage,
+    ScrollToBottomPage
   ],
   providers: [
     StatusBar,

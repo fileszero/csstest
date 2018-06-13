@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { FukidashiPage } from '../pages/fukidashi/fukidashi';
+import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,6 +26,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Fukidashi', component: FukidashiPage },
+      { title: 'Scroll to Bottom', component: ScrollToBottomPage },
     ];
 
   }
