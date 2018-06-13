@@ -11,6 +11,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
 import { CssAnimationPage } from '../pages/css-animation/css-animation';
+import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { CssAnimationPage } from '../pages/css-animation/css-animation';
     ListPage,
     FukidashiPage,
     ScrollToBottomPage,
-    CssAnimationPage
+    CssAnimationPage,
+    SwipeDemoPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { CssAnimationPage } from '../pages/css-animation/css-animation';
     ListPage,
     FukidashiPage,
     ScrollToBottomPage,
-    CssAnimationPage
+    CssAnimationPage,
+    SwipeDemoPage
   ],
   providers: [
     StatusBar,
