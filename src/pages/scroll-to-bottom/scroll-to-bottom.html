@@ -18,6 +18,10 @@
 
 
 <ion-content padding>
+  <ion-item>
+    <ion-label>autoScroll</ion-label>
+    <ion-checkbox [(ngModel)]="autoScroll"></ion-checkbox>
+  </ion-item>
   <ion-content class="timeline" #scrollMe>
     <div *ngFor="let message of timeline" class="message">
       {{message}}

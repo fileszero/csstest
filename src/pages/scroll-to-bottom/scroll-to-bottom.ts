@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewChecked } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
 /**
@@ -13,8 +13,9 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
   selector: 'page-scroll-to-bottom',
   templateUrl: 'scroll-to-bottom.html',
 })
-export class ScrollToBottomPage {
+export class ScrollToBottomPage implements AfterViewChecked {
   timeline: string[] = [];
+  autoScroll: boolean = true;
   @ViewChild('scrollMe') private myScrollContainer: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -32,8 +33,22 @@ export class ScrollToBottomPage {
       if (this.navCtrl.last().instance === this) {
         this.setTimer();
       }
-      this.myScrollContainer.scrollToBottom(300);
+      const dim = this.myScrollContainer.getContentDimensions();
+      const ele = this.myScrollContainer.getNativeElement();
+      const bottom = dim.scrollHeight - dim.scrollTop;
+      if (bottom == ele.clientHeight) {
+        this.autoScroll = true;
+      } else {
+        this.autoScroll = false;
+      }
     }, 1000);
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked');
+    if (this.autoScroll) {
+      this.myScrollContainer.scrollToBottom(300);
+    }
   }
 
 }
