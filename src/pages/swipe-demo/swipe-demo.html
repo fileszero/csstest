@@ -7,6 +7,10 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
     <ion-title>SwipeDemo</ion-title>
   </ion-navbar>
 
@@ -14,5 +18,7 @@
 
 
 <ion-content padding>
-
+  <div class="swipeArea" #swipeArea (swipe)="swiped($event)">
+    swipe this!swipe this!swipe this!swipe this!swipe this!swipe this!
+  </div>
 </ion-content>
