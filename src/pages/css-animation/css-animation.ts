@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'css-animation.html',
 })
 export class CssAnimationPage {
+  timeline: string[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -21,5 +22,9 @@ export class CssAnimationPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CssAnimationPage');
   }
+  say() {
+    const now = Date.now();
+    this.timeline.push(now.toString());
 
+  }
 }
