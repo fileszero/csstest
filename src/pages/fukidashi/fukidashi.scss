@@ -1,11 +1,13 @@
 page-fukidashi {
-  $triangle-size:18px;
-
-  $face-icon-size:40px;
-  $side-margin:10px;
 
 
-@mixin remarks($align: left,$base-color:#edf1ee){
+@mixin remarks($align: left,$base-color:#edf1ee,$border-color:darkgray){
+    $triangle-size:8px;
+    $triangle-offset:5px;
+    $face-icon-size:40px;
+    $side-margin:10px;
+    $border-width:2px;
+
     $vAlign: if($align == left, top,bottom);  // 縦方向align
     $opoAlign:if($align == left, right,left);     // 逆
 
@@ -32,30 +34,38 @@ page-fukidashi {
       margin-#{$align}: ($side-margin + $face-icon-size); /* 上 | 右 | 下 | 左 */
       background: $base-color;
 
+      border: $border-width solid $border-color;
+      $triangle-border: $border-width * 1.4;
       &::after{
         content: "";
         display: inline-block;
         position: absolute;
-        border: 8px solid transparent;
-        #{$vAlign}: 3px;
-        #{$align}: -($triangle-size +1);
+        border: $triangle-size solid transparent;
+        #{$vAlign}: $triangle-offset;
+        #{$align}: -($triangle-size*2 );
         border-#{$opoAlign}: $triangle-size solid $base-color;
-
-        // -ms-transform: rotate(35deg);
-        // -webkit-transform: rotate(35deg);
-        // transform: rotate(35deg);
       }
+      &::before{
+        content: "";
+        display: inline-block;
+        position: absolute;
+        border: $triangle-size + $triangle-border solid transparent;
+        #{$vAlign}: $triangle-offset - $triangle-border;
+        #{$align}: -($triangle-size*2 + ($triangle-border*2));
+        border-#{$opoAlign}: $triangle-size+$triangle-border solid $border-color;
+      }
+
     }
 
   }
 
 
   .yourremark{
-    @include remarks(left,#edf1ee)
+    @include remarks(left,white,#edf1ee)
   }
 
   .myremark{
-    @include remarks(right,#30e8c9)
+    @include remarks(right,white,#30e8c9)
   }
 
   // .myremark{
