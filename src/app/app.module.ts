@@ -10,6 +10,7 @@ import { FukidashiPage } from '../pages/fukidashi/fukidashi';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
+import { CssAnimationPage } from '../pages/css-animation/css-animation';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
     HomePage,
     ListPage,
     FukidashiPage,
-    ScrollToBottomPage
+    ScrollToBottomPage,
+    CssAnimationPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
     HomePage,
     ListPage,
     FukidashiPage,
-    ScrollToBottomPage
+    ScrollToBottomPage,
+    CssAnimationPage
   ],
   providers: [
     StatusBar,

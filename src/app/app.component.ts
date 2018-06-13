@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { FukidashiPage } from '../pages/fukidashi/fukidashi';
 import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
+import { CssAnimationPage } from '../pages/css-animation/css-animation';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,6 +28,7 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Fukidashi', component: FukidashiPage },
       { title: 'Scroll to Bottom', component: ScrollToBottomPage },
+      { title: 'CSS Animation', component: CssAnimationPage },
     ];
 
   }
