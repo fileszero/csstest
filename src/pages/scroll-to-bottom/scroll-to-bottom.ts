@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
 /**
  * Generated class for the ScrollToBottomPage page.
@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
 })
 export class ScrollToBottomPage {
   timeline: string[] = [];
+  @ViewChild('scrollMe') private myScrollContainer: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -31,6 +32,7 @@ export class ScrollToBottomPage {
       if (this.navCtrl.last().instance === this) {
         this.setTimer();
       }
+      this.myScrollContainer.scrollToBottom(300);
     }, 1000);
   }
 
