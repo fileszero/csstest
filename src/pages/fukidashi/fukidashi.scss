@@ -26,6 +26,12 @@ page-fukidashi {
       }
     }
     .message{
+      // enable text selection
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+
       display: inline-block;
       position: relative;
       padding: 10px;
