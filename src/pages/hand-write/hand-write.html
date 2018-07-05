@@ -31,8 +31,14 @@
         </g>
       </g>
       <g>
-        <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="2" fill="blue"></circle>
+        <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="1" fill="blue"></circle>
       </g>
+      <g>
+        <g *ngFor="let p of paths">
+          <path [attr.d]="p.d" fill="none" stroke="red" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+        </g>
+      </g>
+
     </svg>
   </div>
   {{mouseTrace | json}}
