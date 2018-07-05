@@ -18,16 +18,25 @@
 
 <ion-content padding>
   <div id="handwrite-canvas" class="handwrite-canvas">
-    <svg width="300" height="300" viewBox="0 0 300 300" #mainCanvas>
-      <path d="M29,15.43c0,5.92,0,71.36,0,77.28" />
-
-      <path *ngFor="let p of paths" [attr.d]="p.d" fill="none" stroke="#bf0000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
-
+    <!-- 300/109 -->
+    <svg width="100%" height="100%" #mainCanvas>
+      <g transform="scale(2.7522)">
+        <g *ngFor="let p of moji.sen">
+          <path [attr.d]="p.path" fill="none" stroke="#bf0000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <text [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#808080"
+            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 5px Arial;" font-size="5px">
+            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
+          </text>
+        </g>
+      </g>
     </svg>
   </div>
   <svg width="100" height="100" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="40" fill="red"></circle>
   </svg>
-
+  <p>
+    KanjiVG is designed to be easily parsed, and uses XML to achieve this. The properties and shape of every kanji is hierarchically
+    described by XML attributes. The shape of each stroke is described as a SVG path on an area of size
+    <strong>109x109</strong>.
+  </p>
 </ion-content>
