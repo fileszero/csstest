@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { KanjiVGMoji, KanjiVGSen } from './KanjiVG';
 
 /**
  * Generated class for the HandWritePage page.
@@ -8,25 +9,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-export class SvgPath {
-  constructor(fields?: { id?: string, d?: string }) {
-    if (fields) {
-      this.id = fields.id;
-      this.d = fields.d;
-    }
-  }
-  id: string;
-  d: string;
-}
-export interface KanjiVGSen {
-  path: string;
-  groups: string[];
-  text: { value: string, x: string, y: string };
-}
-export interface KanjiVGMoji {
-  id: string;
-  sen: KanjiVGSen[];
-}
 
 export interface Pos {
   x: number;
@@ -44,7 +26,7 @@ const kan: KanjiVGMoji =
 })
 export class HandWritePage {
 
-  paths: SvgPath[] = [];
+  drawed: KanjiVGMoji = { id: "userinput", sen: [] };
   moji: KanjiVGMoji = kan;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -80,8 +62,9 @@ export class HandWritePage {
     if (!pos) return;
     this.mouseTrace.splice(0, this.mouseTrace.length);
     this.mouseTrace.push(pos);
-    const path = this.PosArrayToPath(this.mouseTrace);
-    this.paths.push(new SvgPath({ id: null, d: path }));
+    const sen: KanjiVGSen = { path: this.PosArrayToPath(this.mouseTrace), groups: [] };
+
+    this.drawed.sen.push(sen);
 
   }
   onDrawing(pos: Pos) {
@@ -89,14 +72,14 @@ export class HandWritePage {
     if (this.mouseTrace.length > 0) {
       this.mouseTrace.push(pos);
       const path = this.PosArrayToPath(this.mouseTrace);
-      this.paths[this.paths.length - 1].d = path;
+      this.drawed.sen[this.drawed.sen.length - 1].path = path;
     }
   }
   onDrawEnd() {
     if (this.mouseTrace.length > 0) {
       if (this.mouseTrace.length > 2) {
         const path = this.PosArrayToPath(this.mouseTrace);
-        this.paths[this.paths.length - 1].d = path;
+        this.drawed.sen[this.drawed.sen.length - 1].path = path;
       }
       this.mouseTrace.splice(0, this.mouseTrace.length);
     }

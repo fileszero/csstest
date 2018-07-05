@@ -34,8 +34,12 @@
         <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="1" fill="blue"></circle>
       </g>
       <g>
-        <g *ngFor="let p of paths">
-          <path [attr.d]="p.d" fill="none" stroke="red" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+        <g *ngFor="let p of drawed.sen">
+          <path [attr.d]="p.path" fill="none" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <text *ngIf="p.text" [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+            fill="#808080" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 5px Arial;" font-size="5px">
+            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
+          </text>
         </g>
       </g>
 
