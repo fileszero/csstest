@@ -68,6 +68,15 @@ export class HandWritePage {
     //https://stackoverflow.com/questions/18909142/draw-svg-path-with-mouse
   }
 
+  PosArrayToPath(poss: Pos[]) {
+    var path = "M" + poss[0].x + "," + poss[0].y;
+    var join = "C"
+    for (var i = 1; i < poss.length; i++) {
+      path += join + poss[0].x + "," + poss[0].y;
+      join = ',';
+    }
+    return path;
+  }
   mouseTrace: Pos[] = [];
   onDrawStart(pos: Pos) {
     if (!pos) return;
@@ -82,6 +91,10 @@ export class HandWritePage {
   }
   onDrawEnd() {
     if (this.mouseTrace.length > 0) {
+      if (this.mouseTrace.length > 2) {
+        const path = this.PosArrayToPath(this.mouseTrace);
+        this.paths.push(new SvgPath({ id: null, d: path }));
+      }
       this.mouseTrace.splice(0, this.mouseTrace.length);
     }
   }
