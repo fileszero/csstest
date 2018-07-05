@@ -1,3 +1,14 @@
 page-hand-write {
-
+  .handwrite-canvas {
+  width: 300px;
+  height: 300px;
+  margin: 0px;
+  background-color: aliceblue;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #888;
+  -moz-user-select:none;
+  touch-action: none;
+  }
 }

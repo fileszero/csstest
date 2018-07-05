@@ -17,5 +17,17 @@
 
 
 <ion-content padding>
+  <div id="handwrite-canvas" class="handwrite-canvas">
+    <svg width="300" height="300" viewBox="0 0 300 300" #mainCanvas>
+      <path d="M29,15.43c0,5.92,0,71.36,0,77.28" />
+
+      <path *ngFor="let p of paths" [attr.d]="p.d" fill="none" stroke="#bf0000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+
+    </svg>
+  </div>
+  <svg width="100" height="100" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" fill="red"></circle>
+  </svg>
 
 </ion-content>
