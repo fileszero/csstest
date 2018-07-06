@@ -198,6 +198,10 @@ export class SpansComparer implements KanjiComparer {
       for (let i = 0; i < otherCount; i++) {
         if (otherUsed[i]) continue;
         const pos = this.positions[otherIndexes[i]];
+        if (!pos) {
+          console.log("No pos");
+          continue;
+        }
         const match = pos.match(requiredScore, used);
         if (match != NO_MATCH) {
           // Add score
