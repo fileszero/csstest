@@ -1,22 +1,22 @@
-import { KanjiVGMoji, KanjiVGSen } from './KanjiVG';
+import { KanjiVGMojiData, KanjiVGStrokeData } from '.';
 
 export interface KanjiComparer {
-  compare(a: KanjiVGMoji, b: KanjiVGMoji);
+  compare(a: KanjiVGMojiData, b: KanjiVGMojiData);
 }
 const EOL = 'EOL';
 const NUM = 'NUM';
-const WHITESPACE = ' \t\n\r\v';
-const NUMBERS = '0123456789';
-export class PathData {
+class PathData {
   //https://github.com/quen/kanjirecog/blob/master/src/com/leafdigital/kanji/InputStroke.java
   private pos: number;
   constructor(private path: string) {
     this.pos = 0;
   }
   private isWhitespace(c: string): boolean {
+    const WHITESPACE = ' \t\n\r\v';
     return (WHITESPACE.indexOf(c) >= 0);
   }
   private isNumber(c: string): boolean {
+    const NUMBERS = '0123456789';
     return (NUMBERS.indexOf(c) >= 0);
   }
   /**
@@ -68,15 +68,8 @@ export class PathData {
       end++;
     }
 
-    String number = remaining.substring(start, end);
-    remaining = remaining.substring(end);
-
-    try {
-      return Float.parseFloat(number);
-    }
-    catch (NumberFormatException e)
-    {
-      throw new IllegalArgumentException("Invalid number: " + number);
-    }
+    const number = this.path.substring(start, end);
+    return parseFloat(number);
   }
 }
+
