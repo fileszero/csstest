@@ -12,3 +12,4 @@ export interface KanjiVGMojiData {
   strokes: KanjiVGStrokeData[];
 }
 
+export type PathElement = string | number;

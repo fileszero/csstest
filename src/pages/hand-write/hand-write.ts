@@ -25,6 +25,7 @@ export class HandWritePage {
   moji: KanjiVGMoji = kan;
   comparer: KanjiComparer;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.moji.scale(2.7522);
     this.comparer = new SpansComparer(this.moji);
 
   }
@@ -101,4 +102,10 @@ export class HandWritePage {
   ontouchend(event: TouchEvent) {
     this.onDrawEnd();
   }
+  clearDraw() {
+    this.drawed = new KanjiVGMoji();
+    this.score = this.comparer.compare(this.drawed);
+
+  }
+
 }

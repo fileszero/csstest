@@ -1,4 +1,5 @@
 import { Point2D } from '.';
+import { PathElement } from './KanjiVGTypes';
 
 const EOL = 'EOL';
 const NUM = 'NUM';
@@ -12,7 +13,7 @@ export class PathData {
     const WHITESPACE = ' \t\n\r\v';
     return (WHITESPACE.indexOf(c) >= 0);
   }
-  private isNumber(c: string): boolean {
+  private isNumChar(c: string): boolean {
     const NUMBERS = '0123456789';
     return (NUMBERS.indexOf(c) >= 0);
   }
@@ -27,7 +28,7 @@ export class PathData {
       }
       const letter = this.path.charAt(this.pos);
       if (!this.isWhitespace(letter)) {
-        if (letter === ',' || letter === '-' || letter === '+' || this.isNumber(letter)) {
+        if (letter === ',' || letter === '-' || letter === '+' || this.isNumChar(letter)) {
           return NUM;
         }
         this.pos++;
@@ -60,7 +61,7 @@ export class PathData {
         break;
       }
       const c = this.path.charAt(end);
-      if (c != '.' && !this.isNumber(c)) {
+      if (c != '.' && !this.isNumChar(c)) {
         break;
       }
       end++;
@@ -71,7 +72,46 @@ export class PathData {
     return parseFloat(number);
   }
 
+  isNumber(x: any): x is number {
+    return typeof x === "number";
+  }
+  isString(x: any): x is string {
+    return typeof x === "string";
+  }
+  ElementsToString(elements: PathElement[]) {
+    let result = "";
+    let lastIsCmd = true;
+    for (let ele of elements) {
+      if (this.isNumber(ele)) {
+        if (!lastIsCmd) {
+          result += ",";
+        }
+        result += ele.toString()
+        lastIsCmd = false;
+      } else {
+        result += ele;
+        lastIsCmd = true;
+      }
+    }
+    return result;
+  }
+  getElements(): PathElement[] {
+    this.pos = 0;
+    const result: PathElement[] = [];
+    while (true) {
+      const command = this.readLetter();
+      if (command === EOL) {
+        break;
+      } else if (command === NUM) {
+        result.push(this.readNumber());
+      } else {
+        result.push(command);
+      }
+    }
+    return result;
+  }
   getPoints(): Point2D[] {
+    this.pos = 0;
     const result: Point2D[] = [];
     // Read initial M
     const initial = this.readLetter();

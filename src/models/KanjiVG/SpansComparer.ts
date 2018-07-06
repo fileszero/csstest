@@ -20,6 +20,8 @@ const MIN_SCORE = SCORE_DIAGONALLOCATION * 2;
 
 const NO_MATCH = -1;
 
+const STD_MOJI_SIZE = 109;
+
 class SpanScore {
   stroke: number;
   score: number;
@@ -86,6 +88,20 @@ export class SpansComparer implements KanjiComparer {
     this.moji = moji;
     this.positions = this.createPosisionArray(moji);
   }
+  calcScale(moji: KanjiVGMoji): number {
+    let max = 0;
+    const count = moji.strokes.length;
+    for (let i = 0; i < count; i++) {
+      if (max < moji.strokes[i].start.x) max = moji.strokes[i].start.x;
+      if (max < moji.strokes[i].start.y) max = moji.strokes[i].start.y;
+      if (max < moji.strokes[i].end.x) max = moji.strokes[i].end.x;
+      if (max < moji.strokes[i].end.y) max = moji.strokes[i].end.y;
+    }
+    if (max > STD_MOJI_SIZE) {
+      return STD_MOJI_SIZE / max;
+    }
+    return 1;
+  }
   createPosisionArray(moji: KanjiVGMoji): Position[] {
     // Create positions array
     const positions: Position[] = new Array<Position>(ARRAY_SIZE);
@@ -93,17 +109,18 @@ export class SpansComparer implements KanjiComparer {
 
     // Loop through all the strokes
     const count = moji.strokes.length;
+    const scale = this.calcScale(moji);
     for (let i = 0; i < count; i++) {
       const s = moji.strokes[i];
 
       // Work out X and Y
       const start: Point2D = {
-        x: (s.start.x * LOCATION_RANGE) >> 8,
-        y: (s.start.y * LOCATION_RANGE) >> 8
+        x: (s.start.x * scale * LOCATION_RANGE) >> 8,
+        y: (s.start.y * scale * LOCATION_RANGE) >> 8
       };
       const end: Point2D = {
-        x: (s.end.x * LOCATION_RANGE) >> 8,
-        y: (s.end.y * LOCATION_RANGE) >> 8
+        x: (s.end.x * scale * LOCATION_RANGE) >> 8,
+        y: (s.end.y * scale * LOCATION_RANGE) >> 8
       };
 
 
@@ -164,26 +181,29 @@ export class SpansComparer implements KanjiComparer {
 	 * @return Score in range 0 to 100
 	 */
   public compare(other: KanjiVGMoji) {
-    // Set up used array with nothing used
-    const used: boolean[] = new Array<boolean>(this.moji.strokes.length).fill(false);
-    let unmatched = this.moji.strokes.length;
+    // Set up used array with nothing usecount>othd
+    const count = this.moji.strokes.length;
+    const used: boolean[] = new Array<boolean>(count).fill(false);
+    let unmatched = count;
 
     // Convert each stroke ion the target kanji to a position index
     const otherCount: number = other.strokes.length;
     let otherUnmatched = otherCount;
     const otherUsed: boolean[] = new Array<boolean>(otherCount).fill(false);
     const otherIndexes: number[] = new Array<number>(otherCount);
+    const otherScale = this.calcScale(other);
+
     for (let i = 0; i < otherCount; i++) {
       const s = other.strokes[i];
 
       // Work out X and Y
       const start: Point2D = {
-        x: (s.start.x * LOCATION_RANGE) >> 8,
-        y: (s.start.y * LOCATION_RANGE) >> 8
+        x: (s.start.x * otherScale * LOCATION_RANGE) >> 8,
+        y: (s.start.y * otherScale * LOCATION_RANGE) >> 8
       };
       const end: Point2D = {
-        x: (s.end.x * LOCATION_RANGE) >> 8,
-        y: (s.end.y * LOCATION_RANGE) >> 8
+        x: (s.end.x * otherScale * LOCATION_RANGE) >> 8,
+        y: (s.end.y * otherScale * LOCATION_RANGE) >> 8
       };
 
       otherIndexes[i] = this.getIndex(start.x, start.y, end.x, end.y);
@@ -219,8 +239,9 @@ export class SpansComparer implements KanjiComparer {
       }
     }
 
+    const strokesRatio = (count < otherCount) ? count / otherCount : otherCount / count;
     // Work out as a proportion of max possible score
-    const maxScore = Math.min(this.moji.strokes.length, otherCount) * MAX_SCORE;
-    return 100.0 * (score / maxScore);
+    const maxScore = Math.min(count, otherCount) * MAX_SCORE;
+    return (100.0 * (score / maxScore)) * strokesRatio;
   }
 }
