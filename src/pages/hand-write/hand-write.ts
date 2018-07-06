@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { KanjiVGMoji, KanjiVGStroke, Point2D } from '../../models/KanjiVG';
+import { KanjiVGMoji, KanjiVGStroke, Point2D, SpansComparer, KanjiComparer } from '../../models/KanjiVG';
 
 /**
  * Generated class for the HandWritePage page.
@@ -23,7 +23,10 @@ export class HandWritePage {
 
   drawed: KanjiVGMoji = new KanjiVGMoji();
   moji: KanjiVGMoji = kan;
+  comparer: KanjiComparer;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.comparer = new SpansComparer(this.moji);
+
   }
 
   ionViewDidLoad() {
@@ -31,7 +34,7 @@ export class HandWritePage {
 
     //https://stackoverflow.com/questions/18909142/draw-svg-path-with-mouse
   }
-
+  score: number = 0;
   mouseTrace: Point2D[] = [];
   onDrawStart(pos: Point2D) {
     if (!pos) return;
@@ -39,22 +42,23 @@ export class HandWritePage {
     this.mouseTrace.push(pos);
     const sen: KanjiVGStroke = new KanjiVGStroke();
     this.drawed.strokes.push(sen);
-    sen.setPoints(this.mouseTrace);
+    sen.points = this.mouseTrace;
 
   }
   onDrawing(pos: Point2D) {
     if (!pos) return;
     if (this.mouseTrace.length > 0) {
       this.mouseTrace.push(pos);
-      this.drawed.lastSen.setPoints(this.mouseTrace);
+      this.drawed.lastStroke.points = this.mouseTrace;
     }
   }
   onDrawEnd() {
     if (this.mouseTrace.length > 0) {
       if (this.mouseTrace.length > 2) {
-        this.drawed.lastSen.setPoints(this.mouseTrace);
+        this.drawed.lastStroke.points = this.mouseTrace;
       }
-      this.mouseTrace.splice(0, this.mouseTrace.length);
+      this.mouseTrace = []; // create new object
+      this.score = this.comparer.compare(this.drawed);
     }
   }
 
