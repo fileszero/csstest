@@ -23,11 +23,16 @@
       (mouseout)="onmouseout($event);" (touchstart)="ontouchstart($event);" (touchmove)="ontouchmove($event);" (touchend)="ontouchend($event);">
       <g>
         <g *ngFor="let p of moji.strokes">
-          <path [attr.d]="p.path" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <path [attr.d]="p.path" fill="none" stroke="silver" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
           <text [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#808080"
             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 10px Arial;" font-size="10px">
             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
           </text>
+        </g>
+        <g *ngFor="let p of moji.strokes">
+          <g *ngFor="let v of p.vectors">
+            <path [attr.d]="v.toPath()" fill="none" stroke="orange" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          </g>
         </g>
       </g>
       <g>
@@ -35,11 +40,16 @@
       </g>
       <g>
         <g *ngFor="let p of drawed.strokes">
-          <path [attr.d]="p.path" fill="none" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <path [attr.d]="p.path" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
           <text *ngIf="p.text" [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
             fill="#808080" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 5px Arial;" font-size="5px">
             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
           </text>
+        </g>
+        <g *ngFor="let p of drawed.strokes">
+          <g *ngFor="let v of p.vectors">
+            <path [attr.d]="v.toPath()" fill="none" stroke="red" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          </g>
         </g>
       </g>
 

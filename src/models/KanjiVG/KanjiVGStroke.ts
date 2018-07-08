@@ -1,7 +1,11 @@
 import { Point2D, KanjiVGStrokeData } from ".";
 import { PathData } from "./PathData";
+import { Vector } from "./Vector";
 
 export class KanjiVGStroke implements KanjiVGStrokeData {
+  private _path?: string = "";
+  private _points?: Point2D[];
+  private _vectors?: Vector[];
   groups?: string[];
   text?: { value: string; x: string; y: string; };
   constructor(fields?: KanjiVGStrokeData) {
@@ -11,7 +15,6 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
       this.text = fields.text;
     }
   }
-  private _path?: string = "";
   get path(): string {
     if (!this._path && this._points) {
       this._path = this.PointsToPath(this._points);
@@ -21,9 +24,9 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
   set path(val: string) {
     this._path = val;
     this._points = undefined;
+    this._vectors = undefined;
   }
 
-  private _points?: Point2D[];
   get points(): Point2D[] {
     if (!this._points && this._path) {
       const data = new PathData(this._path);
@@ -35,8 +38,32 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
   set points(positions: Point2D[]) {
     this._path = undefined;
     this._points = positions;
+    this._vectors = undefined;
   }
 
+  get vectors() {
+    if (!this._vectors) {
+      this._vectors = [];
+      if (this.points.length > 7) { // hand draw
+        const vec = new Vector(
+          this.end.x - this.start.x,
+          this.end.y - this.start.y,
+          this.start
+        );
+        this._vectors.push(vec);
+      } else {
+        for (let i = 1; i < this.points.length; i++) {
+          const vec = new Vector(
+            this.points[i].x - this.points[i - 1].x,
+            this.points[i].y - this.points[i - 1].y,
+            this.points[i - 1]
+          );
+          this._vectors.push(vec);
+        }
+      }
+    }
+    return this._vectors;
+  }
   get start(): Point2D {
     return this.points[0];
   }
