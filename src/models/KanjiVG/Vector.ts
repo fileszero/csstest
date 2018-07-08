@@ -4,6 +4,13 @@ export class Vector {
 
   constructor(public x: number, public y: number, public location?: Point2D) {
   }
+  static fromPoints(start: Point2D, end: Point2D) {
+    return new Vector(
+      end.x - start.x,
+      end.y - start.y,
+      start
+    );
+  }
   /**
    * 加算
    * @param v

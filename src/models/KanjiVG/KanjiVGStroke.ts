@@ -45,19 +45,11 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
     if (!this._vectors) {
       this._vectors = [];
       if (this.points.length > 7) { // hand draw
-        const vec = new Vector(
-          this.end.x - this.start.x,
-          this.end.y - this.start.y,
-          this.start
-        );
+        const vec = Vector.fromPoints(this.start, this.end);
         this._vectors.push(vec);
       } else {
         for (let i = 1; i < this.points.length; i++) {
-          const vec = new Vector(
-            this.points[i].x - this.points[i - 1].x,
-            this.points[i].y - this.points[i - 1].y,
-            this.points[i - 1]
-          );
+          const vec = Vector.fromPoints(this.points[i - 1], this.points[i]);
           this._vectors.push(vec);
         }
       }
