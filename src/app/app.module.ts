@@ -13,6 +13,7 @@ import { ScrollToBottomPage } from '../pages/scroll-to-bottom/scroll-to-bottom';
 import { CssAnimationPage } from '../pages/css-animation/css-animation';
 import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
+import { HandWritePage } from '../pages/hand-write/hand-write';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { EventObservablePage } from '../pages/event-observable/event-observable'
     ScrollToBottomPage,
     CssAnimationPage,
     SwipeDemoPage,
-    EventObservablePage
+    EventObservablePage,
+    HandWritePage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { EventObservablePage } from '../pages/event-observable/event-observable'
     ScrollToBottomPage,
     CssAnimationPage,
     SwipeDemoPage,
-    EventObservablePage
+    EventObservablePage,
+    HandWritePage
   ],
   providers: [
     StatusBar,

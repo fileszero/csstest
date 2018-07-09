@@ -1,0 +1,72 @@
+<!--
+  Generated template for the HandWritePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>HandWrite</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div id="handwrite-canvas" class="handwrite-canvas">
+    <!-- 300/109 -->
+    <svg width="100%" height="100%" (mousedown)="onmousedown($event);" (mousemove)="onmousemove($event);" (mouseup)="onmouseup($event);"
+      (mouseout)="onmouseout($event);" (touchstart)="ontouchstart($event);" (touchmove)="ontouchmove($event);" (touchend)="ontouchend($event);"
+      #kanjiPad>
+      <g *ngIf="moji">
+        <g *ngFor="let p of moji.strokes">
+          <path [attr.d]="p.path" fill="none" stroke="silver" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <text [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#808080"
+            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 10px Arial;" font-size="10px">
+            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
+          </text>
+        </g>
+        <!-- <g *ngFor="let p of moji.strokes">
+          <g *ngFor="let v of p.vectors">
+            <path [attr.d]="v.toPath()" fill="none" stroke="orange" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          </g>
+        </g> -->
+      </g>
+      <!-- <g>
+        <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="1" fill="blue"></circle>
+      </g> -->
+      <g *ngIf="drawed">
+        <g *ngFor="let p of drawed.strokes">
+          <path [attr.d]="p.path" fill="none" stroke="black" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          <text *ngIf="p.text" [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+            fill="#808080" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 5px Arial;" font-size="5px">
+            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
+          </text>
+        </g>
+        <g *ngFor="let p of drawed.strokes">
+          <g *ngFor="let v of p.vectors">
+            <path [attr.d]="v.toPath()" fill="none" stroke="red" stroke-width="1" stroke-opacity="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+          </g>
+        </g>
+      </g>
+
+    </svg>
+  </div>
+  <button ion-button (click)="clearDraw()">clear</button>
+  score: {{score}}
+  <br>
+  <textarea *ngIf="drawed" style="width: 100%;height: 30%;">{{drawedData() | json}}</textarea>
+  <!-- <svg width="100" height="100" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" fill="red"></circle>
+  </svg> -->
+  <p>
+    KanjiVG is designed to be easily parsed, and uses XML to achieve this. The properties and shape of every kanji is hierarchically
+    described by XML attributes. The shape of each stroke is described as a SVG path on an area of size
+    <strong>109x109</strong>.
+  </p>
+</ion-content>
