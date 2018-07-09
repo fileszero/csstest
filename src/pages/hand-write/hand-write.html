@@ -20,8 +20,9 @@
   <div id="handwrite-canvas" class="handwrite-canvas">
     <!-- 300/109 -->
     <svg width="100%" height="100%" (mousedown)="onmousedown($event);" (mousemove)="onmousemove($event);" (mouseup)="onmouseup($event);"
-      (mouseout)="onmouseout($event);" (touchstart)="ontouchstart($event);" (touchmove)="ontouchmove($event);" (touchend)="ontouchend($event);">
-      <g>
+      (mouseout)="onmouseout($event);" (touchstart)="ontouchstart($event);" (touchmove)="ontouchmove($event);" (touchend)="ontouchend($event);"
+      #kanjiPad>
+      <g *ngIf="moji">
         <g *ngFor="let p of moji.strokes">
           <path [attr.d]="p.path" fill="none" stroke="silver" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
           <text [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#808080"
@@ -29,16 +30,16 @@
             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
           </text>
         </g>
-        <g *ngFor="let p of moji.strokes">
+        <!-- <g *ngFor="let p of moji.strokes">
           <g *ngFor="let v of p.vectors">
             <path [attr.d]="v.toPath()" fill="none" stroke="orange" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
           </g>
-        </g>
+        </g> -->
       </g>
-      <g>
+      <!-- <g>
         <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="1" fill="blue"></circle>
-      </g>
-      <g>
+      </g> -->
+      <g *ngIf="drawed">
         <g *ngFor="let p of drawed.strokes">
           <path [attr.d]="p.path" fill="none" stroke="black" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
@@ -59,7 +60,7 @@
   <button ion-button (click)="clearDraw()">clear</button>
   score: {{score}}
   <br>
-  <textarea style="width: 100%;height: 30%;">{{drawedData() | json}}</textarea>
+  <textarea *ngIf="drawed" style="width: 100%;height: 30%;">{{drawedData() | json}}</textarea>
   <!-- <svg width="100" height="100" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="40" fill="red"></circle>
   </svg> -->

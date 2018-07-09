@@ -6,8 +6,8 @@ export interface Point2D {
 
 export interface KanjiVGStrokeData {
   path: string;
-  groups?: string[];
-  text?: { value: string, x: string, y: string };
+  order: number;
+  text?: { value: string, x: number, y: number };
 }
 export interface KanjiVGMojiData {
   id: string;

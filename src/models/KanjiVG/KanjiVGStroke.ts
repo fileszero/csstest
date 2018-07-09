@@ -6,12 +6,12 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
   private _path?: string = "";
   private _points?: Point2D[];
   private _vectors?: Vector[];
-  groups?: string[];
-  text?: { value: string; x: string; y: string; };
+  order: number;
+  text?: { value: string; x: number; y: number; };
   constructor(fields?: KanjiVGStrokeData) {
     if (fields) {
       this.path = fields.path;
-      this.groups = fields.groups;
+      this.order = fields.order;
       this.text = fields.text;
     }
   }

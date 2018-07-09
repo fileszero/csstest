@@ -28,12 +28,12 @@ export class KanjiVGMoji implements KanjiVGMojiData {
       scaled.path = data.ElementsToString(elements);
       if (s.text) {
 
-        let x = parseFloat(s.text.x) * ratio;
-        let y = parseFloat(s.text.y) * ratio;
+        let x = s.text.x * ratio;
+        let y = s.text.y * ratio;
         scaled.text = {
           value: s.text.value,
-          x: x.toString(),
-          y: y.toString()
+          x: x,
+          y: y
         }
       }
       return scaled;
