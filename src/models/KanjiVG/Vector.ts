@@ -2,7 +2,7 @@ import { Point2D } from "./KanjiVGTypes";
 
 export class Vector {
 
-  constructor(public x: number, public y: number, public location?: Point2D) {
+  constructor(public x: number, public y: number, public location: Point2D = { x: 0, y: 0 }) {
   }
   static fromPoints(start: Point2D, end: Point2D) {
     return new Vector(
@@ -50,6 +50,15 @@ export class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
+  /**
+   * コサイン類似度
+   * @param v
+   */
+  cosineSimilarity(v: Vector): number {
+    // https://code.i-harness.com/ja/q/7f031
+    // https://gist.github.com/robertknight/5410420
+    return this.dot(v) / (this.length * v.length);
+  }
   toPath(): string {
     if (this.location) {
       let path = "M" + this.location.x + "," + this.location.y;

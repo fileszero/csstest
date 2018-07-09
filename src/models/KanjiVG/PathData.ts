@@ -171,6 +171,14 @@ export class PathData {
           last.x = this.readNumber();
           last.y = this.readNumber();
           break;
+        case 'l':
+          last.x += this.readNumber();
+          last.y += this.readNumber();
+          break;
+        case 'L':
+          last.x = this.readNumber();
+          last.y = this.readNumber();
+          break;
         case 'z':
         case 'Z':
           last.x = start.x;
