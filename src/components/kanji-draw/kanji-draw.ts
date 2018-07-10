@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { KanjiVGMoji, KanjiVGStroke, Point2D, KanjiComparer, VectorComparer, KanjiVGMojiData, KanjiVGStrokeData } from '../../models/KanjiVG';
-import * as SAMPLES from './sampleMoji';
+import { KanjiProvider } from '../../providers/kanji/kanji';
 /**
  * Generated class for the KanjiDrawComponent component.
  *
@@ -18,13 +18,20 @@ export class KanjiDrawComponent implements AfterViewInit {
   drawed: KanjiVGMoji;   //= SAMPLES.SampleKan109; //new KanjiVGMoji();  //SAMPLES.sample2;
   mojiVG: KanjiVGMoji;   //= SAMPLES.Kan;
   comparer: KanjiComparer;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private kanji: KanjiProvider,
+    public navCtrl: NavController, public navParams: NavParams) {
   }
 
   mojiValue: string;
   @Input()
   set moji(ji: string) {
-    this.mojiValue = ji.charAt(0);
+    this.mojiValue = ji;
+    this.kanji.getKanjiVG(ji).subscribe(kgv => {
+      this.init(kgv);
+    })
+
+
     let code = '00000' + ji.charCodeAt(0).toString(16);
     code = code.substr(-5);
     console.log(code);
@@ -35,12 +42,12 @@ export class KanjiDrawComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.init();
+    this.init(new KanjiVGMoji());
   }
-  init() {
+  init(kgv: KanjiVGMoji) {
     console.log('ionViewDidLoad kanji-draw');
-    this.drawed = SAMPLES.DrawedKan;    //new KanjiVGMoji(); // SAMPLES.sample1; new KanjiVGMoji();  //SAMPLES.sample2;
-    this.mojiVG = SAMPLES.Kan;
+    this.drawed = new KanjiVGMoji();  // SAMPLES.DrawedKan;    //new KanjiVGMoji(); // SAMPLES.sample1; new KanjiVGMoji();  //SAMPLES.sample2;
+    this.mojiVG = kgv;
 
     //https://stackoverflow.com/questions/18909142/draw-svg-path-with-mouse
     const padSize: number = Math.min(this.kanjiPad.nativeElement.clientHeight, this.kanjiPad.nativeElement.clientWidth);
