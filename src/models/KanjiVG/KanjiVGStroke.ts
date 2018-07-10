@@ -15,6 +15,13 @@ export class KanjiVGStroke implements KanjiVGStrokeData {
       this.text = fields.text;
     }
   }
+  /**
+   * deep copy
+   */
+  clone(): KanjiVGStroke {
+    const result = new KanjiVGStroke({ path: this.path, order: this.order, text: this.text });
+    return result;
+  }
   get path(): string {
     if (!this._path && this._points) {
       this._path = this.PointsToPath(this._points);

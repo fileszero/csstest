@@ -30,11 +30,6 @@ export class KanjiDrawComponent implements AfterViewInit {
     this.kanji.getKanjiVG(ji).subscribe(kgv => {
       this.init(kgv);
     })
-
-
-    let code = '00000' + ji.charCodeAt(0).toString(16);
-    code = code.substr(-5);
-    console.log(code);
   }
   get moji() {
     return this.mojiValue;

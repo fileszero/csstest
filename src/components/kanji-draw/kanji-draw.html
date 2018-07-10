@@ -3,9 +3,8 @@
   #kanjiPad>
   <g *ngIf="mojiVG">
     <g *ngFor="let p of mojiVG.strokes">
-      <path [attr.d]="p.path" fill="none" stroke="silver" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
-      <text [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#808080"
-        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 10px Arial;" font-size="10px">
+      <path [attr.d]="p.path" [id]="'moji-stroke-'+p.order"></path>
+      <text [attr.x]="p.text.x" [attr.y]="p.text.y" [id]="'moji-num-'+p.order">
         <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
       </text>
     </g>
@@ -20,18 +19,13 @@
             </g> -->
   <g *ngIf="drawed">
     <g *ngFor="let p of drawed.strokes">
-      <path [attr.d]="p.path" fill="none" stroke="black" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
-      <text *ngIf="p.text" [attr.x]="p.text.x" [attr.y]="p.text.y" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
-        fill="#808080" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 5px Arial;" font-size="5px">
-        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
-      </text>
+      <path [attr.d]="p.path" class="drawed-stroke"></path>
     </g>
-    <g *ngFor="let p of drawed.strokes">
+    <!-- <g *ngFor="let p of drawed.strokes">
       <g *ngFor="let v of p.vectors">
         <path [attr.d]="v.toPath()" fill="none" stroke="red" stroke-width="1" stroke-opacity="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
       </g>
-    </g>
+    </g> -->
   </g>
 
 </svg>
