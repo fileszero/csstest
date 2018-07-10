@@ -16,6 +16,7 @@ import { EventObservablePage } from '../pages/event-observable/event-observable'
 import { HandWritePage } from '../pages/hand-write/hand-write';
 
 import { ComponentsModule } from '../components/components.module';
+import { KanjiProvider } from '../providers/kanji/kanji';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ComponentsModule } from '../components/components.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    KanjiProvider
   ]
 })
 export class AppModule { }
