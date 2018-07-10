@@ -6,6 +6,12 @@ import { Vector } from "./Vector";
 export class VectorComparer implements KanjiComparer {
   constructor(public tehon: KanjiVGMoji) {
   }
+  public verbose: boolean = false;
+  private log(msg: string) {
+    if (this.verbose) {
+      console.log(msg);
+    }
+  }
   public compare(other: KanjiVGMoji): number {
     // if (other.strokes.length != this.tehon.strokes.length) return 0;  //角数違い
     let tehon = this.tehon;
@@ -15,15 +21,15 @@ export class VectorComparer implements KanjiComparer {
     const usedStroke: boolean[] = Array<boolean>(other.strokes.length).fill(false);
     const maches: number[] = Array<number>(tehon.strokes.length).fill(0);
     for (let t = 0; t < tehon.strokes.length; t++) {
-      console.log("Stroke:" + t);
+      this.log("Stroke:" + t);
       let mach_idx = -1;
       let max_score = 0;
       // お手本と手書きの各片を比較
       for (let o = 0; o < other.strokes.length; o++) {
         if (usedStroke[o]) continue;  //already used by other tehon stroke
-        console.log("        stroke(" + t + "-" + o + "):");
+        this.log("        stroke(" + t + "-" + o + "):");
         const score = this.compareStroke(tehon.strokes[t], other.strokes[o], tehon.size);
-        console.log("        score:" + score);
+        this.log("        score:" + score);
 
         if (max_score < score) {
           mach_idx = o;
@@ -33,8 +39,8 @@ export class VectorComparer implements KanjiComparer {
       if (mach_idx >= 0) {
         usedStroke[mach_idx] = true;
       }
-      console.log("    mach_idx:" + mach_idx);
-      console.log("    max_score:" + max_score);
+      this.log("    mach_idx:" + mach_idx);
+      this.log("    max_score:" + max_score);
       maches[t] = max_score;
     }
     return this.avg(maches);
@@ -60,7 +66,7 @@ export class VectorComparer implements KanjiComparer {
   }
   private compareStroke(tehon: KanjiVGStroke, draw: KanjiVGStroke, canvasSize: number): number {
     //開始位置　類似性
-    console.log("                start(x,y) tehon/draw]:(" + tehon.start.x + "," + tehon.start.y + ")/(" + draw.start.x + "," + draw.start.y + ")");
+    this.log("                start(x,y) tehon/draw]:(" + tehon.start.x + "," + tehon.start.y + ")/(" + draw.start.x + "," + draw.start.y + ")");
     let start_score = this.distancePar(tehon.start, draw.start, canvasSize)
     if (start_score < 0.5) return 0;  //離れ過ぎ
 
@@ -82,7 +88,7 @@ export class VectorComparer implements KanjiComparer {
     let len_score = t_len > d_len ? d_len / t_len : t_len / d_len;
 
     const scores = [start_score, end_score, dest_score, len_score];
-    console.log("                [start_score, end_score, dest_score, len_score]:[" + scores + "]");
+    this.log("                [start_score, end_score, dest_score, len_score]:[" + scores + "]");
     return this.avg(scores);
 
   }
@@ -105,17 +111,17 @@ export class VectorComparer implements KanjiComparer {
       const v = tehon.vectors[t];
       //手本の終点
       const end: Point2D = this.movePoint(v.location, v);
-      console.log("                start-end:{x:" + v.location.x + ',y:' + v.location.y + '}-{x:' + end.x + ', y: ' + end.y + '} ');
+      this.log("                start-end:{x:" + v.location.x + ',y:' + v.location.y + '}-{x:' + end.x + ', y: ' + end.y + '} ');
 
       //手書きの開始点
       d_start = d_end || draw.start;  // 始点は前回の終点から
       const end_idx = this.findNearPoint(end, d_points_window); //手書きの終点
       if (end_idx >= 0) {
-        // console.log("end_idx:" + end_idx.toString());
+        // this.log("end_idx:" + end_idx.toString());
         d_end = d_points_window[end_idx];
         d_points_window = d_points_window.splice(0, end_idx); // shrink window
         const d_v = Vector.fromPoints(d_start, d_end);
-        console.log("                draw s-e:{x:" + d_v.location.x + ',y:' + d_v.location.y + '}-{x:' + d_end.x + ', y: ' + d_end.y + '} ');
+        this.log("                draw s-e:{x:" + d_v.location.x + ',y:' + d_v.location.y + '}-{x:' + d_end.x + ', y: ' + d_end.y + '} ');
 
         //開始位置　類似性
         let score = this.distancePar(v.location, d_v.location, canvasSize);
@@ -136,9 +142,9 @@ export class VectorComparer implements KanjiComparer {
     const start_sim = this.avg(start_sims);
     const end_sim = this.avg(end_sims);
     const vecter_sim = this.avg(vecter_sims);
-    console.log("            start_sims[],AVG:[" + start_sims.toString() + '], ' + start_sim);
-    console.log("            end_sims[],AVG:[" + end_sims.toString() + '], ' + end_sim);
-    console.log("            vecter_sims[],AVG:[" + vecter_sims.toString() + '], ' + vecter_sim);
+    this.log("            start_sims[],AVG:[" + start_sims.toString() + '], ' + start_sim);
+    this.log("            end_sims[],AVG:[" + end_sims.toString() + '], ' + end_sim);
+    this.log("            vecter_sims[],AVG:[" + vecter_sims.toString() + '], ' + vecter_sim);
     return this.avg([start_sim, end_sim, vecter_sim]);
   }
   /**
