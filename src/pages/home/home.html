@@ -9,11 +9,15 @@
 
 <ion-content padding>
   <h3>Ionic Menu Starter</h3>
-  <div id="handwrite-canvas1" class="handwrite-canvas">
-    <kanji-draw [moji]="'漢'"></kanji-draw>
-  </div>
-  <div id="handwrite-canvas2" class="handwrite-canvas">
-    <kanji-draw [moji]="'字'"></kanji-draw>
+  <div *ngFor="let moji of 'あいう'.split('')">
+    <div class="handwrite-canvas">
+      <kanji-draw [moji]="moji" #kanji1></kanji-draw>
+    </div>
+    <label>
+      <input type="checkbox" [(ngModel)]="kanji1.showMojiVector" />活字Vector</label>
+    <label>
+      <input type="checkbox" [(ngModel)]="kanji1.showDrawedVector" />手書Vector</label>
+    <br> {{kanji1.score}}
   </div>
   <p>
     If you get lost, the

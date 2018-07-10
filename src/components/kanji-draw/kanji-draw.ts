@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, Input, Output } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { KanjiVGMoji, KanjiVGStroke, Point2D, KanjiComparer, VectorComparer, KanjiVGMojiData, KanjiVGStrokeData } from '../../models/KanjiVG';
 import { KanjiProvider } from '../../providers/kanji/kanji';
@@ -23,18 +23,35 @@ export class KanjiDrawComponent implements AfterViewInit {
     public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  mojiValue: string;
+  private _moji: string;
   @Input()
   set moji(ji: string) {
-    this.mojiValue = ji;
+    this._moji = ji;
     this.kanji.getKanjiVG(ji).subscribe(kgv => {
       this.init(kgv);
     })
   }
   get moji() {
-    return this.mojiValue;
+    return this._moji;
   }
 
+  private _showMojiVector: boolean = false;
+  @Input()
+  set showMojiVector(flag: boolean) {
+    this._showMojiVector = flag;
+  }
+  get showMojiVector(): boolean {
+    return this._showMojiVector;
+  }
+
+  private _showDrawedVector: boolean = false;
+  @Input()
+  set showDrawedVector(flag: boolean) {
+    this._showDrawedVector = flag;
+  }
+  get showDrawedVector(): boolean {
+    return this._showDrawedVector;
+  }
 
   ngAfterViewInit() {
     this.init(new KanjiVGMoji());
@@ -55,6 +72,7 @@ export class KanjiDrawComponent implements AfterViewInit {
   }
 
   score: number = 0;
+
   mouseTrace: Point2D[] = [];
   onDrawStart(pos: Point2D) {
     if (!pos) return;
