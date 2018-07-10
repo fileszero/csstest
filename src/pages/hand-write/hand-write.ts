@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { KanjiVGMoji, KanjiVGStroke, Point2D, SpansComparer, KanjiComparer, VectorComparer, KanjiVGMojiData, KanjiVGStrokeData } from '../../models/KanjiVG';
+import { KanjiVGMoji, KanjiVGStroke, Point2D, KanjiComparer, VectorComparer, KanjiVGMojiData, KanjiVGStrokeData } from '../../models/KanjiVG';
 import * as SAMPLES from './sampleDraw';
 
 /**

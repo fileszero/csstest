@@ -15,6 +15,7 @@ import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
 
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HandWritePage } from '../pages/hand-write/hand-write';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
