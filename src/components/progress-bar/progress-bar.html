@@ -1,4 +1,5 @@
-<!-- Generated template for the ProgressBarComponent component -->
-<div>
-  {{text}}
+<div [ngStyle]="outerStyle()">
+  <div [ngStyle]="innerStyle()">
+    <span *ngIf="showNumber">{{progress}}%</span>
+  </div>
 </div>

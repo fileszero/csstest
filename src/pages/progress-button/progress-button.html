@@ -17,4 +17,7 @@
 
 <ion-content padding>
   <progress-button></progress-button>
+  <input type="number" value="15" [(ngModel)]="proc.value" #proc>{{proc.value}}
+  <input type="number" value="1" [(ngModel)]="procheight.value" #procheight>{{procheight.value}}
+  <progress-bar [progress]="proc.value" [showNumber]="true" [height]="procheight.value"></progress-bar>
 </ion-content>
