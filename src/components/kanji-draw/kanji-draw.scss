@@ -1,0 +1,41 @@
+kanji-draw {
+
+  // 基本とする色
+  $color-base: #0088cc;
+
+  // 色相回転の基準角度
+  $hue-step: 130deg;
+
+  @for $stroke from 0 to 50 {
+    #moji-stroke-#{$stroke} {
+      fill : none;
+      stroke : adjust-hue($color-base, $hue-step*$stroke);
+      stroke-opacity: 0.5;
+      stroke-width: 3;
+      stroke-linecap : round;
+      stroke-linejoin : round;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    #moji-num-#{$stroke} {
+      text-anchor:middle;
+      font-size: 10px;
+      font-family: Arial;
+      fill : none;
+      stroke : adjust-hue($color-base, $hue-step*$stroke);
+      stroke-opacity: 0.5;
+      stroke-width: 1;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  .drawed-stroke {
+    fill : none;
+    stroke : black;
+    stroke-opacity: 1;
+    stroke-width: 3;
+    stroke-linecap : round;
+    stroke-linejoin : round;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+}

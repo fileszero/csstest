@@ -1,46 +1,78 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, AfterViewInit, Input, Output } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { KanjiVGMoji, KanjiVGStroke, Point2D, KanjiComparer, VectorComparer, KanjiVGMojiData, KanjiVGStrokeData } from '../../models/KanjiVG';
-import * as SAMPLES from './sampleDraw';
-
+import { KanjiProvider } from '../../providers/kanji/kanji';
 /**
- * Generated class for the HandWritePage page.
+ * Generated class for the KanjiDrawComponent component.
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
  */
-
-
-
-@IonicPage()
 @Component({
-  selector: 'page-hand-write',
-  templateUrl: 'hand-write.html',
+  selector: 'kanji-draw',
+  templateUrl: 'kanji-draw.html'
 })
-export class HandWritePage {
-  @ViewChild('kanjiPad') kanjiPad: ElementRef;
+export class KanjiDrawComponent implements AfterViewInit {
+
+  @ViewChild('kanjiPad') kanjiPad: ElementRef;  //http://www.l08084.com/entry/2018/03/04/201439
   drawed: KanjiVGMoji;   //= SAMPLES.SampleKan109; //new KanjiVGMoji();  //SAMPLES.sample2;
-  moji: KanjiVGMoji;   //= SAMPLES.Kan;
+  mojiVG: KanjiVGMoji;   //= SAMPLES.Kan;
   comparer: KanjiComparer;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private kanji: KanjiProvider,
+    public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HandWritePage');
-    this.drawed = SAMPLES.DrawedKan;    //new KanjiVGMoji(); // SAMPLES.sample1; new KanjiVGMoji();  //SAMPLES.sample2;
-    this.moji = SAMPLES.Kan;
+  private _moji: string;
+  @Input()
+  set moji(ji: string) {
+    this._moji = ji;
+    this.kanji.getKanjiVG(ji).subscribe(kgv => {
+      this.init(kgv);
+    })
+  }
+  get moji() {
+    return this._moji;
+  }
+
+  private _showMojiVector: boolean = false;
+  @Input()
+  set showMojiVector(flag: boolean) {
+    this._showMojiVector = flag;
+  }
+  get showMojiVector(): boolean {
+    return this._showMojiVector;
+  }
+
+  private _showDrawedVector: boolean = false;
+  @Input()
+  set showDrawedVector(flag: boolean) {
+    this._showDrawedVector = flag;
+  }
+  get showDrawedVector(): boolean {
+    return this._showDrawedVector;
+  }
+
+  ngAfterViewInit() {
+    this.init(new KanjiVGMoji());
+  }
+  init(kgv: KanjiVGMoji) {
+    console.log('ionViewDidLoad kanji-draw');
+    this.drawed = new KanjiVGMoji();  // SAMPLES.DrawedKan;    //new KanjiVGMoji(); // SAMPLES.sample1; new KanjiVGMoji();  //SAMPLES.sample2;
+    this.mojiVG = kgv;
 
     //https://stackoverflow.com/questions/18909142/draw-svg-path-with-mouse
     const padSize: number = Math.min(this.kanjiPad.nativeElement.clientHeight, this.kanjiPad.nativeElement.clientWidth);
-    const scale = padSize / this.moji.size;
-    this.moji = this.moji.scale(scale);
-    this.drawed.size = this.moji.size;
-    this.comparer = new VectorComparer(this.moji);
+    const scale = padSize / this.mojiVG.size;
+    this.mojiVG = this.mojiVG.scale(scale);
+    this.drawed.size = this.mojiVG.size;
+    this.comparer = new VectorComparer(this.mojiVG);
     this.score = this.comparer.compare(this.drawed);
 
   }
 
   score: number = 0;
+
   mouseTrace: Point2D[] = [];
   onDrawStart(pos: Point2D) {
     if (!pos) return;
@@ -109,7 +141,7 @@ export class HandWritePage {
   }
   clearDraw() {
     this.drawed = new KanjiVGMoji();
-    this.drawed.size = this.moji.size;
+    this.drawed.size = this.mojiVG.size;
     this.score = this.comparer.compare(this.drawed);
 
   }
@@ -124,4 +156,5 @@ export class HandWritePage {
     };
     return data;
   }
+
 }

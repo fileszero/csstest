@@ -9,9 +9,19 @@
 
 <ion-content padding>
   <h3>Ionic Menu Starter</h3>
-
+  <div *ngFor="let moji of 'あいう'.split('')">
+    <div class="handwrite-canvas">
+      <kanji-draw [moji]="moji" #kanji1></kanji-draw>
+    </div>
+    <label>
+      <input type="checkbox" [(ngModel)]="kanji1.showMojiVector" />活字Vector</label>
+    <label>
+      <input type="checkbox" [(ngModel)]="kanji1.showDrawedVector" />手書Vector</label>
+    <br> {{kanji1.score}}
+  </div>
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+    If you get lost, the
+    <a href="http://ionicframework.com/docs/v2 ">docs</a> will show you the way.
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>

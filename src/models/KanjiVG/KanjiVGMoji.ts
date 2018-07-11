@@ -17,7 +17,7 @@ export class KanjiVGMoji implements KanjiVGMojiData {
     result.id = this.id;
     result.size = this.size * ratio;
     result.strokes = this.strokes.map(s => {
-      const scaled = new KanjiVGStroke();
+      const scaled = s.clone();
       var data = new PathData(s.path);
       var elements = data.getElements();
       elements.forEach((p, idx, arr) => {

@@ -1,0 +1,35 @@
+<svg width="100%" height="100%" (mousedown)="onmousedown($event);" (mousemove)="onmousemove($event);" (mouseup)="onmouseup($event);"
+  (mouseout)="onmouseout($event);" (touchstart)="ontouchstart($event);" (touchmove)="ontouchmove($event);" (touchend)="ontouchend($event);"
+  #kanjiPad>
+  <g *ngIf="mojiVG">
+    <g *ngFor="let p of mojiVG.strokes">
+      <path [attr.d]="p.path" [id]="'moji-stroke-'+p.order"></path>
+      <text [attr.x]="p.text.x" [attr.y]="p.text.y" [id]="'moji-num-'+p.order">
+        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">{{p.text.value}}</tspan>
+      </text>
+    </g>
+    <g *ngIf="showMojiVector">
+      <g *ngFor="let p of mojiVG.strokes">
+        <g *ngFor="let v of p.vectors">
+          <path [attr.d]="v.toPath()" fill="none" stroke="orange" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+  <!-- <g>
+              <circle *ngFor="let m of mouseTrace" [attr.cx]="m.x" [attr.cy]="m.y" r="1" fill="blue"></circle>
+            </g> -->
+  <g *ngIf="drawed">
+    <g *ngFor="let p of drawed.strokes">
+      <path [attr.d]="p.path" class="drawed-stroke"></path>
+    </g>
+    <g *ngIf="showDrawedVector">
+      <g *ngFor="let p of drawed.strokes">
+        <g *ngFor="let v of p.vectors">
+          <path [attr.d]="v.toPath()" fill="none" stroke="red" stroke-width="1" stroke-opacity="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-linecap: round; stroke-linejoin: round;"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

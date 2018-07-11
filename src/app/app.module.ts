@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -15,6 +16,8 @@ import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
 
+import { ComponentsModule } from '../components/components.module';
+import { KanjiProvider } from '../providers/kanji/kanji';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { HandWritePage } from '../pages/hand-write/hand-write';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ComponentsModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +52,8 @@ import { HandWritePage } from '../pages/hand-write/hand-write';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    KanjiProvider
   ]
 })
 export class AppModule { }
