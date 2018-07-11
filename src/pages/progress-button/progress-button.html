@@ -27,4 +27,11 @@
   <hr>
   <progress-bar [progress]="proc.value" [showNumber]="true" [height]="3" [color]="progressColor(proc.value)"></progress-bar>
   {{progressColor(proc.value)}}
+  <ion-list>
+    <ion-item *ngFor="let p of [10,20,30,40,50,60,70,80,90,100]" no-lines menuToggle>
+      <p>{{p}}%</p>
+      <progress-bar [progress]="p" [showNumber]="false" [height]="1" [color]="progressColor(p)"></progress-bar>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
