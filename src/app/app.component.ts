@@ -11,6 +11,7 @@ import { CssAnimationPage } from '../pages/css-animation/css-animation';
 import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
+import { KanjiDrawPage } from '../pages/kanji-draw/kanji-draw';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,7 +35,8 @@ export class MyApp {
       { title: 'CSS Animation', component: CssAnimationPage },
       { title: 'Swipe Demo', component: SwipeDemoPage },
       { title: 'Life cycle Observe', component: EventObservablePage },
-      { title: "Hand Writing", component: HandWritePage }
+      { title: "Hand Writing", component: HandWritePage },
+      { title: "Kanji Draw Demo", component: KanjiDrawPage }
 
     ];
 

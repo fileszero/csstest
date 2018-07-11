@@ -15,6 +15,7 @@ import { CssAnimationPage } from '../pages/css-animation/css-animation';
 import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
+import { KanjiDrawPage } from '../pages/kanji-draw/kanji-draw';
 
 import { ComponentsModule } from '../components/components.module';
 import { KanjiProvider } from '../providers/kanji/kanji';
@@ -29,7 +30,8 @@ import { KanjiProvider } from '../providers/kanji/kanji';
     CssAnimationPage,
     SwipeDemoPage,
     EventObservablePage,
-    HandWritePage
+    HandWritePage,
+    KanjiDrawPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { KanjiProvider } from '../providers/kanji/kanji';
     CssAnimationPage,
     SwipeDemoPage,
     EventObservablePage,
-    HandWritePage
+    HandWritePage,
+    KanjiDrawPage
   ],
   providers: [
     StatusBar,

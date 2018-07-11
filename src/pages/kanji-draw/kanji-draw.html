@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>KanjiDraw</ion-title>
   </ion-navbar>
 
@@ -14,5 +17,17 @@
 
 
 <ion-content padding>
+  <div *ngFor="let moji of 'あいう'.split('')">
+    <div class="handwrite-canvas">
+      <kanji-draw [moji]="moji" #kanji1></kanji-draw>
+    </div>
+    <div class="handwrite-tool">
+      <label>
+        <input type="checkbox" [(ngModel)]="kanji1.showMojiVector" />活字Vector</label>
+      <label>
+        <input type="checkbox" [(ngModel)]="kanji1.showDrawedVector" />手書Vector</label>
+      <br> {{kanji1.score}}
+    </div>
+  </div>
 
 </ion-content>
