@@ -68,7 +68,7 @@ export class ProgressBarComponent {
       "text-align": "center",
       "background-color": "#f4f4f4",
       "color": "#fff"
-    }
+    };
     if (this.showBorder) {
       s["border"] = "1px solid #dcdcdc";
     }
@@ -76,17 +76,18 @@ export class ProgressBarComponent {
   }
   innerStyle() {
     const s = {
-      "height": this.height + "px",
-      "width": this.progress + "%",
+      "height": this.height.toString() + "px",
+      "width": this.progress.toString() + "%",
       "padding": "0px",
       "white-space": "nowrap",
       "overflow": "hidden",
       "background-color": this.color,
-      "font-size": this.height + "px",
-    }
-    if (this.height > 3) {
-      s["border-radius"] = this.height + "px";
-    }
+      "font-size": this.height.toString() + "px",
+    };
+    // if (this.height > 3) {
+    //   s["border-radius"] = this.height.toString() + "px";
+    // }
+
     return s;
   }
 

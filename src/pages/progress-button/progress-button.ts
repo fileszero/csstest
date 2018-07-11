@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ColorUtil } from '../../models/Colors';
 
 /**
  * Generated class for the ProgressButtonPage page.
@@ -22,4 +23,11 @@ export class ProgressButtonPage {
     console.log('ionViewDidLoad ProgressButtonPage');
   }
 
+  progressColor(progress: number) {
+    if (progress < 0) progress = 0;
+    if (progress > 100) progress = 100;
+    const zeroRgb = "#ff0000";
+    return ColorUtil.changeHue(zeroRgb, 90 * (progress / 100));
+
+  }
 }
