@@ -16,6 +16,7 @@ import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
 import { KanjiDrawPage } from '../pages/kanji-draw/kanji-draw';
+import { ProgressButtonPageModule } from '../pages/progress-button/progress-button.module';
 
 import { ComponentsModule } from '../components/components.module';
 import { KanjiProvider } from '../providers/kanji/kanji';
@@ -31,13 +32,14 @@ import { KanjiProvider } from '../providers/kanji/kanji';
     SwipeDemoPage,
     EventObservablePage,
     HandWritePage,
-    KanjiDrawPage
+    KanjiDrawPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     ComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    ProgressButtonPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

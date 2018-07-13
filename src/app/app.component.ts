@@ -12,6 +12,7 @@ import { SwipeDemoPage } from '../pages/swipe-demo/swipe-demo';
 import { EventObservablePage } from '../pages/event-observable/event-observable';
 import { HandWritePage } from '../pages/hand-write/hand-write';
 import { KanjiDrawPage } from '../pages/kanji-draw/kanji-draw';
+import { ProgressButtonPage } from '../pages/progress-button/progress-button';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,6 +31,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
+      { title: 'Progress Button', component: ProgressButtonPage },
       { title: 'Fukidashi', component: FukidashiPage },
       { title: 'Scroll to Bottom', component: ScrollToBottomPage },
       { title: 'CSS Animation', component: CssAnimationPage },
