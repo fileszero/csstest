@@ -20,7 +20,7 @@ export class KanjiProvider {
     let code = '00000' + moji.charCodeAt(0).toString(16);
     code = code.substr(-5);
     //const url= "assets/json/" + code + ".json";
-    const url = "http://127.0.0.1:5500/kanji/json/" + code + ".json";
+    const url = "https://fileszero.github.io/kvg2js/kanji/json/" + code + ".json";
     return this.http.get(url).map((data: any) => new KanjiVGMoji(data));
   }
 }
