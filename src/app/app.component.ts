@@ -13,6 +13,7 @@ import { EventObservablePage } from '../pages/event-observable/event-observable'
 import { HandWritePage } from '../pages/hand-write/hand-write';
 import { KanjiDrawPage } from '../pages/kanji-draw/kanji-draw';
 import { ProgressButtonPage } from '../pages/progress-button/progress-button';
+import { ListItemPage } from '../pages/list-item/list-item';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,6 +32,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
+      { title: 'List Item', component: ListItemPage },
       { title: 'Progress Button', component: ProgressButtonPage },
       { title: 'Fukidashi', component: FukidashiPage },
       { title: 'Scroll to Bottom', component: ScrollToBottomPage },

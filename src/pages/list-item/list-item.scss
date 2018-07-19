@@ -1,0 +1,37 @@
+page-list-item {
+  $minHeight:4.4rem;
+  .no_margin{
+    min-height: $minHeight!important;
+    .label {
+      margin: 0;
+    }
+
+    .item-inner {
+      // padding-right: 0px!important;
+      min-height: unset;
+    }
+    .icon{
+      z-index: 1;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .layer{
+      position: relative;
+      width: 100%;
+      min-height:$minHeight - 0.4rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
+      .main{
+        z-index: 1;
+        position: absolute;
+        bottom: 0px;
+      }
+      .back{
+        z-index: -1;
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+      }
+    }
+  }
+}
